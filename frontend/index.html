@@ -2,10 +2,35 @@
 <html>
   <head>
     <title>Page Title</title>
-    <script type="module" src="index.js"></script>
+  <style>
+    .frame {
+      width: 400px;
+      height: 400px;
+      border: 1px solid black;
+    }
+    .field {
+      float: left;
+      width: calc(400px/3);
+      height: calc(400px/3);
+      outline: 1px solid black;
+    }
+</style>
   </head>
   <body>
-    <h1>This is a Heading</h1>
-    <p>This is a paragraph.</p>
+    <button onclick="selectPlayer1()" id="selectPlayerOne">Select Player One</button>
+    <button onclick="selectPlayer2()" id="selectPlayerTwo">Select Player Two</button>
+    <div class="frame">
+      <div id="field1" onclick="checkField(0,0)" class="field"></div>
+      <div id="field2" onclick="checkField(1,0)" class="field"></div>
+      <div id="field3" onclick="checkField(2,0)" class="field"></div>
+      <div id="field4" onclick="checkField(0,1)" class="field"></div>
+      <div id="field5" onclick="checkField(1,1)" class="field"></div>
+      <div id="field6" onclick="checkField(2,1)" class="field"></div>
+      <div id="field7" onclick="checkField(0,2)" class="field"></div>
+      <div id="field8" onclick="checkField(1,2)" class="field"></div>
+      <div id="field9" onclick="checkField(2,2)" class="field"></div>
+    </div>
+    <button onclick="reset()">reset</button>
+    <script src="index.js"></script>
   </body>
 </html>

@@ -9,14 +9,19 @@
     "field": {
       "x": "int",
       "y": "int",
+      "fieldName": "string",
       "checkedBy": "*player"
     },
     "player": {
-      "name": "string"
+      "name": "string",
+      "selected": "bool"
     }
   },
   "actions": {
     "reset": {},
+    "selectPlayer": {
+      "player": "playerID"
+    },
     "checkField": {
       "player": "playerID",
       "x": "int",

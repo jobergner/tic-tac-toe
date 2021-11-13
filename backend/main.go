@@ -2,10 +2,11 @@ package main
 
 import (
 	"log"
+	"strconv"
 	state "ttt/backent"
 )
 
-const fps = 30
+const fps = 1
 
 var possibleWins = [][][]int{
 	// vertical
@@ -32,9 +33,11 @@ var sideEffects = state.SideEffects{
 		match.Player1().SetName("Player1")
 		match.Player2().SetName("Player2")
 
+		fieldCount := 1
 		for y := 0; y < 3; y++ {
 			for x := 0; x < 3; x++ {
-				match.AddField().SetX(x).SetY(y)
+				match.AddField().SetX(x).SetY(y).SetFieldName("field" + strconv.Itoa(fieldCount))
+				fieldCount++
 			}
 		}
 	},
@@ -97,6 +100,9 @@ var actions = state.Actions{
 		engine.DeleteMatch(matchID)
 		newMatch := engine.CreateMatch()
 		matchID = newMatch.ID()
+	},
+	SelectPlayer: func(params state.SelectPlayerParams, engine *state.Engine) {
+		engine.Player(params.Player).SetSelected(true)
 	},
 }
 
