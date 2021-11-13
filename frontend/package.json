@@ -9,9 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "serve": "^13.0.2"
-  },
   "devDependencies": {
     "parcel": "^2.0.1"
   }
