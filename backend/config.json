@@ -1,0 +1,26 @@
+{
+  "state": {
+    "match": {
+      "player1": "player",
+      "player2": "player",
+      "fields": "[]field",
+      "winner": "*player"
+    },
+    "field": {
+      "x": "int",
+      "y": "int",
+      "checkedBy": "*player"
+    },
+    "player": {
+      "name": "string"
+    }
+  },
+  "actions": {
+    "reset": {},
+    "checkField": {
+      "player": "playerID",
+      "x": "int",
+      "y": "int"
+    }
+  }
+}
