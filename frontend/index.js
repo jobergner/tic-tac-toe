@@ -1,4 +1,3 @@
-
 const ws = new WebSocket("ws://localhost:3496/ws");
 ws.open = () => this.setSocketStatus("open");
 ws.onclose = () => this.setSocketStatus("closed");
@@ -83,4 +82,102 @@ function selectPlayer2() {
 function setButtonState(disabled) {
   document.getElementById("selectPlayerOne").disabled = disabled;
   document.getElementById("selectPlayerTwo").disabled = disabled;
+}
+
+class FieldWrapper {
+  constructor({x, y, fieldName, checkedBy}) {
+    this.x = x
+    this.y = y
+    this.fieldName = fieldName
+    this.checkedBy = checkedBy
+  }
+
+  _update(field) {
+    if (field.x) {
+      this.x = field.x
+    }
+    if (field.y) {
+      this.y = field.y
+    }
+    if (field.fieldName) {
+      this.fieldName = field.fieldName
+    }
+    if (field.checkedBy) {
+      // TODO
+    }
+  }
+
+  render() {
+    this.render()
+  }
+}
+
+// idea: instead if new FieldWrapper pass func through constructor (data) => new Field(data)
+// so user can define the type
+class MatchWrapper {
+  constructor({player1, player2, fields, winner}) {
+    this.player1 = new PlayerWrapper(player1)
+    this.player2 = new PlayerWrapper(player2)
+    this.fields = new Map()
+    Object.keys(fields).forEach((key) => {
+      const el = new FieldWrapper(fields[key])
+      this.fields.set(key, el)
+      el._parent = this
+    })
+    this.winner = winner
+  }
+
+  _update(match) {
+    if (match.fields) {
+      for (const fieldKey in match.fields) {
+        const data = match.fields[fieldKey]
+        const el = this.fields.get(data.id)
+        if (data.operationKind === "DELETE") {
+          this.fields.delete(data.id)
+        } else {
+          el._update(data)
+        }
+      }
+    }
+    if (match.player1) {
+      this.player1._update(match.player1)
+    }
+    if (match.player2) {
+      this.player1._update(match.player1)
+    }
+    if (match.winner) {
+      if (match.winner.operationKind === "DELETE") {
+        this.winner = null
+      } else {
+        // TODO: handle
+      }
+    }
+  }
+
+  _cascadeRender() {
+    this.render()
+    this.fields.forEach((_, field) => {
+      field._cascadeRender()
+    })
+  }
+}
+
+class PlayerWrapper {
+  constructor({name, selected}) {
+    this.name = name
+    this.selected = selected
+  }
+
+  _update(player) {
+    if (player.name) {
+      this.name = player.name
+    }
+    if (player.selected) {
+      this.selected = player.selected
+    }
+  }
+
+  _cascadeRender() {
+    this.render()
+  }
 }
